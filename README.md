@@ -24,6 +24,7 @@ This documentation outlines the various Jupyter notebooks and Python scripts use
 
 ### Running SubTab Implementation on Data
 - **Script Command:** `python train.py`
+- Highest accuracyt reached on high noise data = 61.3% (see C=10000.png)
 
 This script is used to run the SubTab implementation on the specified dataset.
 

@@ -41,12 +41,16 @@ def linear_model_eval(config, z_train, y_train, z_test=None, y_test=None, descri
         # Initialize Logistic regression
         print(10 * "*" + "C=" + str(c) + 10 * "*")
         clf = LogisticRegression(max_iter=1200, solver='lbfgs', C=c, multi_class='multinomial')
+        print("Reached 1")
         # Fit model to the data
-        clf.fit(z_train, y_train)
+        clf.fit(z_train[:100], y_train[:100])
+        print("Reached 2")
         # Score for training set
         tr_acc = clf.score(z_train, y_train)
+        print("Reached 3")
         # Score for test set
         te_acc = clf.score(z_test, y_test)
+        print("Reached 4")
         # Print results
         print("Training score:", tr_acc)
         print("Test score:", te_acc)
@@ -108,65 +112,76 @@ def visualise_clusters(config, embeddings, labels, plt_name="test", alpha=1.0, l
         ncol (int): Defines number of columns to use for legends of the plot
 
     """
-    # Define colors to be used for each class/cluster
-    color_list, _ = get_color_list()
-    # Used to adjust space for legends based on number of columns in the legend. ncol: subplot_adjust
-    legend_space_adjustment = {"1": 0.9, "2": 0.9, "3": 0.75, "4": 0.65, "5": 0.65}
-    # Initialize an empty dictionary to hold the mapping for color palette
-    palette = {}
-    # Map colors to the indexes.
-    for i in range(len(color_list)):
-        palette[str(i)] = color_list[i]
-    # Make sure that the labels are 1D arrays
-    y = labels.reshape(-1, )
-    # Turn labels to a list
-    y = list(map(str, y.tolist()))
-    # Define number of sub-plots to draw. In this case, 2, one for PCA, and one for t-SNE
-    img_n = 2
-    # Initialize subplots
-    fig, axs = plt.subplots(1, img_n, figsize=(9, 3.5), facecolor='w', edgecolor='k')
-    # Adjust the whitespace around sub-plots
-    fig.subplots_adjust(hspace=.1, wspace=.1)
-    # adjust the ticks of axis.
-    plt.tick_params(axis='both', which='both', left=False, right=False, bottom=False, top=False, labelbottom=False)
-    # Flatten axes if we have more than 1 plot. Or, return a list of 2 axs to make it compatible with multi-plot case.
-    axs = axs.ravel() if img_n > 1 else [axs, axs]
-    # Get 2D embeddings, using PCA
-    pca = PCA(n_components=2)
-    # Fit training data and transform
-    embeddings_pca = pca.fit_transform(embeddings)  # if embeddings.shape[1]>2 else embeddings
-    # Set the title of the sub-plot
-    axs[0].title.set_text('Embeddings from PCA')
-    # Plot samples, using each class label to define the color of the class.
-    sns_plt = sns.scatterplot(x=embeddings_pca[:, 0], y=embeddings_pca[:, 1], ax=axs[0], palette=palette, hue=y, s=20,
-                              alpha=alpha)
-    # Overwrite legend labels
-    overwrite_legends(sns_plt, fig, ncol=ncol, labels=legend_labels, title=legend_title)
-    # Get 2D embeddings, using t-SNE
-    embeddings_tsne = tsne(embeddings)  # if embeddings.shape[1]>2 else embeddings
-    # Set the title of the sub-plot
-    axs[1].title.set_text('Embeddings from t-SNE')
-    # Plot samples, using each class label to define the color of the class.
-    sns_plt = sns.scatterplot(x=embeddings_tsne[:, 0], y=embeddings_tsne[:, 1], ax=axs[1], palette=palette, hue=y, s=20,
-                              alpha=alpha)
-    # Overwrite legend labels
-    overwrite_legends(sns_plt, fig, ncol=ncol, labels=legend_labels, title=legend_title)
-    # Remove legends in sub-plots
-    axs[0].get_legend().remove()
-    axs[1].get_legend().remove()
-    # Adjust the scaling factor to fit your legend text completely outside the plot
-    # (smaller value results in more space being made for the legend)
-    plt.subplots_adjust(right=legend_space_adjustment[str(ncol)])
-    # Get the path to the project root
-    root_path = os.path.dirname(os.path.dirname(__file__))
-    # Define the path to save the plot to.
-    fig_path = os.path.join(root_path, "results", config["framework"], "evaluation", "clusters", plt_name + ".png")
-    # Define tick params
-    plt.tick_params(axis=u'both', which=u'both', length=0)
-    # Save the plot
-    plt.savefig(fig_path, bbox_inches="tight")
-    # Clear figure just in case if there is a follow-up plot.
-    plt.clf()
+    pass
+    # # Define colors to be used for each class/cluster
+    # color_list, _ = get_color_list()
+    # # Used to adjust space for legends based on number of columns in the legend. ncol: subplot_adjust
+    # legend_space_adjustment = {"1": 0.9, "2": 0.9, "3": 0.75, "4": 0.65, "5": 0.65}
+    # # Initialize an empty dictionary to hold the mapping for color palette
+    # palette = {}
+    # # Map colors to the indexes.
+    # for i in range(len(color_list)):
+    #     palette[str(i)] = color_list[i]
+    # # Make sure that the labels are 1D arrays
+    # y = labels.reshape(-1, )
+    # # Turn labels to a list
+    # y = list(map(str, y.tolist()))
+    # # Define number of sub-plots to draw. In this case, 2, one for PCA, and one for t-SNE
+    # img_n = 2
+    # # Initialize subplots
+    # fig, axs = plt.subplots(1, img_n, figsize=(9, 3.5), facecolor='w', edgecolor='k')
+    # # Adjust the whitespace around sub-plots
+    # fig.subplots_adjust(hspace=.1, wspace=.1)
+    # # adjust the ticks of axis.
+    # plt.tick_params(axis='both', which='both', left=False, right=False, bottom=False, top=False, labelbottom=False)
+    # # Flatten axes if we have more than 1 plot. Or, return a list of 2 axs to make it compatible with multi-plot case.
+    # axs = axs.ravel() if img_n > 1 else [axs, axs]
+    # # Get 2D embeddings, using PCA
+    # pca = PCA(n_components=2)
+    # # Fit training data and transform
+    # embeddings_pca = pca.fit_transform(embeddings)  # if embeddings.shape[1]>2 else embeddings
+    # # Set the title of the sub-plot
+    # axs[0].title.set_text('Embeddings from PCA')
+    # # Plot samples, using each class label to define the color of the class.
+    # sns_plt = sns.scatterplot(x=embeddings_pca[:, 0], y=embeddings_pca[:, 1], ax=axs[0], palette=palette, hue=y, s=20,
+    #                           alpha=alpha)
+    # # Overwrite legend labels
+    # overwrite_legends(sns_plt, fig, ncol=ncol, labels=legend_labels, title=legend_title)
+    # # Get 2D embeddings, using t-SNE
+    # embeddings_tsne = tsne(embeddings)  # if embeddings.shape[1]>2 else embeddings
+    # # Set the title of the sub-plot
+    # axs[1].title.set_text('Embeddings from t-SNE')
+    # # Plot samples, using each class label to define the color of the class.
+    # sns_plt = sns.scatterplot(x=embeddings_tsne[:, 0], y=embeddings_tsne[:, 1], ax=axs[1], palette=palette, hue=y, s=20,
+    #                           alpha=alpha)
+    # # Overwrite legend labels
+    # overwrite_legends(sns_plt, fig, ncol=ncol, labels=legend_labels, title=legend_title)
+    # # Remove legends in sub-plots
+    # axs[0].get_legend().remove()
+    # axs[1].get_legend().remove()
+    # # Adjust the scaling factor to fit your legend text completely outside the plot
+    # # (smaller value results in more space being made for the legend)
+    # plt.subplots_adjust(right=legend_space_adjustment[str(ncol)])
+    # # Get the path to the project root
+    # root_path = os.path.dirname(os.path.dirname(__file__))
+    # # Define the path to save the plot to.
+    # fig_path = os.path.join(root_path, "results", config["framework"], "evaluation", "clusters", plt_name + ".png")
+    # # Define tick params
+    # plt.tick_params(axis=u'both', which=u'both', length=0)
+    # # Save the plot
+    # plt.savefig(fig_path, bbox_inches="tight")
+    # # Clear figure just in case if there is a follow-up plot.
+    # plt.clf()
+    # # Instead of plt.show(), ensure the plot is saved and the display is not attempted
+    # # Define the path to save the plot to.
+    # root_path = os.path.dirname(os.path.dirname(__file__))
+    # fig_path = os.path.join(root_path, "results", config["framework"], "evaluation", "clusters", plt_name + ".png")
+    # plt.savefig(fig_path, bbox_inches="tight")
+
+    # # Close the plot to free up memory
+    # plt.close(fig)
+
+
 
 
 def overwrite_legends(sns_plt, fig, ncol, labels, title=None):

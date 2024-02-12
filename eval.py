@@ -32,6 +32,7 @@ def eval(data_loader, config):
     model = SubTab(config)
     # Load the model
     model.load_models()
+    print(f"Model is loaded from {model._results_path}\n")
     # Evaluate Autoencoder
     with th.no_grad():
         # Get the joint embeddings and class labels of training set
@@ -48,6 +49,7 @@ def eval(data_loader, config):
         if config["mlflow"]:
             # Log model and results with mlflow
             mlflow.log_artifacts(model._results_path + "/evaluation/" + "/clusters", "evaluation")
+        print("DKL: Evaluation is done!")
 
 
 def evalulate_models(data_loader, model, config, plot_suffix="_Test", mode='train', z_train=None, y_train=None):

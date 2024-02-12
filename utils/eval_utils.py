@@ -43,7 +43,7 @@ def linear_model_eval(config, z_train, y_train, z_test=None, y_test=None, descri
         clf = LogisticRegression(max_iter=1200, solver='lbfgs', C=c, multi_class='multinomial')
         print("Reached 1")
         # Fit model to the data
-        clf.fit(z_train[:100], y_train[:100])
+        clf.fit(z_train, y_train)
         print("Reached 2")
         # Score for training set
         tr_acc = clf.score(z_train, y_train)

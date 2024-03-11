@@ -4,30 +4,33 @@ This documentation outlines the various Jupyter notebooks and Python scripts use
 
 ## Jupyter Notebooks
 
-### 1. Model Training on Low Noise Data
+## Milestone 1. 
 
-#### a. Focusing on the 'era' Column
+### I. MLP Training
+
+#### 1.Low Noise Data
+
+##### a. Focusing on the 'era' Column
 - **Notebook:** `Q1P1.ipynb`
 
-#### b. Focusing on the 'target_5' Column
+##### b. Focusing on the 'target_5' Column
 - **Notebook:** `Q1P1_target_5.ipynb`
 
-### 2. Model Training on High Noise Data
+#### 2.High Noise Data
 
-#### a. Focusing on the 'era' Column
+##### a. Focusing on the 'era' Column
 - **Notebook:** `Q1P1_high_noise.ipynb`
 
-#### b. Focusing on the 'target_5' Column
+##### b. Focusing on the 'target_5' Column
 - **Notebook:** `Q1P1_high_noise_target_5.ipynb`
 
-## Python Scripts
+### II. SubTab Implementations
 
-### Running SubTab Implementation on Data
+#### Running SubTab Implementation
 - **Script Command:** `python train.py`
 - Highest accuracyt reached on high noise data = 61.3% (see C=10000.png)
 
-This script is used to run the SubTab implementation on the specified dataset.
 
----
+## Milestone 2
 
-For more detailed information on each component, refer to the individual notebook or script documentation.
+### TabPFN

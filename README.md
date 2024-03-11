@@ -4,7 +4,7 @@ This documentation outlines the various Jupyter notebooks and Python scripts use
 
 ## Report
 
-Report is available at `./Report.pdf`.
+Report is available at `./Report.A1.AML.pdf`.
 
 ## Jupyter Notebooks
 
@@ -32,7 +32,7 @@ Report is available at `./Report.pdf`.
 
 #### Running SubTab Implementation
 - **Script Command:** `python train.py`
-- Highest accuracyt reached on high noise data = 61.3% (see C=10000.png)
+- Highest accuracyt reached on high noise data = 61.3% (see C=10000.png screenshot in report)
 
 ## Milestone 2
 
